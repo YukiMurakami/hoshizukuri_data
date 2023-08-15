@@ -1,0 +1,29 @@
+def b_network(feature_dim, action_space):
+    layer = nn.Sequential()
+    size1 = 2048
+    size2 = 1024
+    size3 = 512
+    size4 = 512
+    size5 = 512
+    layer.add_module("dense1", nn.Linear(feature_dim, size1))
+    layer.add_module("bn1", nn.BatchNorm1d(size1))
+    layer.add_module("relu1", nn.ReLU())
+    layer.add_module("dense2", nn.Linear(size1, size2))
+    layer.add_module("bn2", nn.BatchNorm1d(size2))
+    layer.add_module("relu2", nn.ReLU())
+    layer.add_module("dense3", nn.Linear(size2, size3))
+    layer.add_module("bn3", nn.BatchNorm1d(size3))
+    layer.add_module("relu3", nn.ReLU())
+    layer.add_module("dense4", nn.Linear(size3, size4))
+    layer.add_module("bn4", nn.BatchNorm1d(size4))
+    layer.add_module("relu4", nn.ReLU())
+    layer.add_module("dense5", nn.Linear(size4, size5))
+    layer.add_module("bn5", nn.BatchNorm1d(size5))
+    layer.add_module("relu5", nn.ReLU())
+
+    pi_layer = nn.Sequential()
+    pi_layer.add_module("dense6", nn.Linear(size5 + 15, action_space))
+    pi_layer.add_module("softmax", nn.Softmax())
+
+    return layer, pi_layer
+
